@@ -4,13 +4,19 @@
       <td>
         <mat-form-field class="w-full">
           <mat-label>Name</mat-label>
-          <input matInput />
+          <input
+            matInput
+            [(ngModel)]="product.name"
+            name="name"
+            type="text"
+            required
+          />
         </mat-form-field>
       </td>
       <td>
         <mat-form-field class="w-full">
           <mat-label>Category</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="product.category" name="category" required>
             @for (category of categories; track category) {
             <mat-option [value]="category.value">{{
               category.viewValue
@@ -26,13 +32,19 @@
       <td>
         <mat-form-field class="w-full">
           <mat-label>Selling Price</mat-label>
-          <input matInput />
+          <input
+            matInput
+            [(ngModel)]="product.selling_price"
+            name="selling_price"
+            type="number"
+            required
+          />
         </mat-form-field>
       </td>
       <td>
         <mat-form-field class="w-full">
           <mat-label>Unit</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="product.unit" name="unit" required>
             @for (unit of units; track unit) {
             <mat-option [value]="unit.value">{{ unit.viewValue }}</mat-option>
             }
@@ -44,10 +56,28 @@
 
   <mat-form-field class="w-full">
     <mat-label>Description</mat-label>
-    <textarea matInput></textarea>
+    <textarea
+      matInput
+      [(ngModel)]="product.description"
+      name="description"
+      type="text"
+      required
+    ></textarea>
   </mat-form-field>
 
   <div class="flex justify-end my-2">
-    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="
+        !product.name ||
+        !product.category ||
+        !product.sellingPrice ||
+        !product.unit
+      "
+      (click)="onSubmit()"
+    >
+      Save
+    </button>
   </div>
 </form>
