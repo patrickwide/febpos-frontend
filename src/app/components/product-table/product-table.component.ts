@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { ProductCommunicationService } from '../../product-communication.service';
 import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
+
 @Component({
   selector: 'app-product-table',
   standalone: true,
