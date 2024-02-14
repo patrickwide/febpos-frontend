@@ -45,13 +45,21 @@ export class AddToCartComponent implements OnInit {
 
   increaseQuantity() {
     this.item.quantity++;
+    this.cartService.addToCart(this.item);
   }
 
   decreaseQuantity() {
     this.item.quantity--;
-    if (this.item.quantity === 0) {
-      this.cartService.removeFromCart(this.item);
+    this.cartService.removeFromCart(this.item);
+    if (this.item.quantity < 1) {
       this.inCart = false;
     }
+  }
+
+  updateQuantity(newQuantity: number) {
+    console.log('newQuantity: ', newQuantity);
+
+    this.item.quantity = newQuantity;
+    this.cartService.addToCart(this.item);
   }
 }

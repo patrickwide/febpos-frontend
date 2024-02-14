@@ -13,6 +13,8 @@
       type="number"
       class="rounded-xl border mx-2 text-center"
       [(ngModel)]="item.quantity"
+      (ngModelChange)="updateQuantity($event)"
+      min="0"
     />
   </div>
   <button mat-mini-fab color="primary" (click)="increaseQuantity()">
