@@ -5,11 +5,11 @@ import Product from '../../interfaces/product';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { ProductCommunicationService } from '../../product-communication.service';
-
+import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
 @Component({
   selector: 'app-product-table',
   standalone: true,
-  imports: [MatTableModule, HttpClientModule, DatePipe],
+  imports: [MatTableModule, HttpClientModule, DatePipe, AddToCartComponent],
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.css'],
   providers: [ProductService, DatePipe],

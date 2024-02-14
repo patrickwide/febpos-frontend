@@ -1,0 +1,22 @@
+@if (!inCart) {
+<button mat-raised-button color="primary" (click)="addToCart()">
+  Add to Cart
+</button>
+} @if (inCart) {
+<div>
+  <button mat-mini-fab color="warn" (click)="decreaseQuantity()">
+    <mat-icon>remove</mat-icon>
+  </button>
+  <div>
+    <input
+      matInput
+      type="number"
+      class="rounded-xl border mx-2 text-center"
+      [(ngModel)]="item.quantity"
+    />
+  </div>
+  <button mat-mini-fab color="primary" (click)="increaseQuantity()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+}
