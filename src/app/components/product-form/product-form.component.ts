@@ -11,6 +11,8 @@ import Unit from '../../interfaces/unit';
 import { UnitService } from '../../unit.service';
 import { ProductService } from '../../product.service';
 
+import { MatDialogRef } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-product-form',
   standalone: true,
@@ -37,7 +39,7 @@ export class ProductFormComponent {
 
   productService: ProductService = inject(ProductService);
 
-  constructor() {
+  constructor(private dialogRef: MatDialogRef<ProductFormComponent>) {
     this.categoryService.getCategories().subscribe((categories) => {
       this.categories = categories;
     });
@@ -69,6 +71,7 @@ export class ProductFormComponent {
         (response) => {
           console.log('Product created: ', response);
           this.resetForm();
+          this.dialogRef.close();
         },
         (error) => {
           console.error('Error creating product: ', error);
