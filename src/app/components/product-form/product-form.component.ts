@@ -12,6 +12,7 @@ import { UnitService } from '../../unit.service';
 import { ProductService } from '../../product.service';
 
 import { MatDialogRef } from '@angular/material/dialog';
+import { ProductCommunicationService } from '../../product-communication.service';
 
 @Component({
   selector: 'app-product-form',
@@ -39,7 +40,10 @@ export class ProductFormComponent {
 
   productService: ProductService = inject(ProductService);
 
-  constructor(private dialogRef: MatDialogRef<ProductFormComponent>) {
+  constructor(
+    private dialogRef: MatDialogRef<ProductFormComponent>,
+    private communicationService: ProductCommunicationService
+  ) {
     this.categoryService.getCategories().subscribe((categories) => {
       this.categories = categories;
     });
@@ -71,6 +75,7 @@ export class ProductFormComponent {
         (response) => {
           console.log('Product created: ', response);
           this.resetForm();
+          this.communicationService.productCreated.emit();
           this.dialogRef.close();
         },
         (error) => {
