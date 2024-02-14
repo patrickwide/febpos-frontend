@@ -6,8 +6,8 @@
           <mat-label>Name</mat-label>
           <input
             matInput
-            [(ngModel)]="product.name"
-            name="name"
+            [(ngModel)]="product.product_name"
+            name="product_name"
             type="text"
             required
           />
@@ -16,7 +16,11 @@
       <td>
         <mat-form-field class="w-full">
           <mat-label>Category</mat-label>
-          <mat-select [(ngModel)]="product.category" name="category" required>
+          <mat-select
+            [(ngModel)]="product.category_id"
+            name="category_id"
+            required
+          >
             @for (category of categories; track category) {
             <mat-option [value]="category.category_id">{{
               category.category_name
@@ -34,8 +38,8 @@
           <mat-label>Selling Price</mat-label>
           <input
             matInput
-            [(ngModel)]="product.selling_price"
-            name="selling_price"
+            [(ngModel)]="product.price"
+            name="price"
             type="number"
             required
           />

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import Category from '../../interfaces/category';
 import Unit from '../../interfaces/unit';
 import { UnitService } from '../../unit.service';
+import { ProductService } from '../../product.service';
 
 @Component({
   selector: 'app-product-form',
@@ -23,7 +24,7 @@ import { UnitService } from '../../unit.service';
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css',
-  providers: [CategoryService],
+  providers: [CategoryService, UnitService, ProductService],
 })
 export class ProductFormComponent {
   categories: Category[] = [];
@@ -33,6 +34,8 @@ export class ProductFormComponent {
   units: Unit[] = [];
 
   unitService: UnitService = inject(UnitService);
+
+  productService: ProductService = inject(ProductService);
 
   constructor() {
     this.categoryService.getCategories().subscribe((categories) => {
@@ -44,18 +47,37 @@ export class ProductFormComponent {
 
   // Define properties for form data
   product: any = {
-    name: '',
-    category: '',
-    selling_price: '',
+    product_name: '',
+    category_id: '',
+    price: '',
     unit: '',
     description: '',
   };
 
   // Function to handle form submission
   onSubmit(): void {
-    console.log('product: ', this.product);
-  }
+    console.log(this.product);
 
+    if (
+      this.product.product_name &&
+      this.product.category_id &&
+      this.product.price &&
+      this.product.unit &&
+      this.product.description
+    ) {
+      this.productService.createProduct(this.product).subscribe(
+        (response) => {
+          console.log('Product created: ', response);
+          this.resetForm();
+        },
+        (error) => {
+          console.error('Error creating product: ', error);
+        }
+      );
+    } else {
+      console.error('All fields must be filled!');
+    }
+  }
   // Function to reset the form
   resetForm(): void {
     this.product = {
