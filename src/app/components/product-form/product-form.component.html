@@ -1,0 +1,53 @@
+<form>
+  <table class="w-full" cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field class="w-full">
+          <mat-label>Name</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="w-full">
+          <mat-label>Category</mat-label>
+          <mat-select>
+            @for (category of categories; track category) {
+            <mat-option [value]="category.value">{{
+              category.viewValue
+            }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <table class="w-full" cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field class="w-full">
+          <mat-label>Selling Price</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="w-full">
+          <mat-label>Unit</mat-label>
+          <mat-select>
+            @for (unit of units; track unit) {
+            <mat-option [value]="unit.value">{{ unit.viewValue }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+
+  <mat-form-field class="w-full">
+    <mat-label>Description</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+
+  <div class="flex justify-end my-2">
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+  </div>
+</form>
