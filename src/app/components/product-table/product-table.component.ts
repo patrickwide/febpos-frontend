@@ -3,17 +3,18 @@ import { MatTableModule } from '@angular/material/table';
 import { ProductService } from '../../product.service';
 import Product from '../../interfaces/product';
 import { HttpClientModule } from '@angular/common/http';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-product-table',
   standalone: true,
-  imports: [MatTableModule, HttpClientModule],
+  imports: [MatTableModule, HttpClientModule, DatePipe],
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.css'],
-  providers: [ProductService],
+  providers: [ProductService, DatePipe],
 })
 export class ProductTableComponent {
   displayedColumns: string[] = [
+    'created_at',
     'product_name',
     'category',
     'price',
