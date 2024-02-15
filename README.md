@@ -1,7 +1,3 @@
-Certainly! Below is a detailed README file for your Angular project. Feel free to customize it further based on your specific project details:
-
----
-
 # Febpos-Frontend
 
 This is the frontend component of the Febpos Point of Sale System, developed using Angular.
