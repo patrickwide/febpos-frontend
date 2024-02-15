@@ -62,7 +62,7 @@ export class ProductFormComponent {
 
   // Function to handle form submission
   onSubmit(): void {
-    console.log(this.product);
+    // console.log(this.product);
 
     if (
       this.product.product_name &&
@@ -73,7 +73,7 @@ export class ProductFormComponent {
     ) {
       this.productService.createProduct(this.product).subscribe(
         (response) => {
-          console.log('Product created: ', response);
+          // console.log('Product created: ', response);
           this.resetForm();
           this.communicationService.productCreated.emit();
           this.dialogRef.close();

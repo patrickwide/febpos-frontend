@@ -7,14 +7,10 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class CartService {
-  private itemsInCartSubject: BehaviorSubject<CartItem[]> = new BehaviorSubject<
-    CartItem[]
-  >(this.getInitialCart());
-
   private itemsInCart: CartItem[] = [];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.itemsInCartSubject.subscribe((_) => (this.itemsInCart = _));
+    this.itemsInCart = this.getInitialCart();
   }
 
   private getInitialCart(): CartItem[] {
@@ -28,7 +24,12 @@ export class CartService {
   }
 
   public getItem(id: string): CartItem | undefined {
-    return this.itemsInCart.find((item) => item.id === id);
+    this.itemsInCart = this.getInitialCart();
+    return this.itemsInCart.find((item) => item.product_id === id);
+  }
+
+  public getItems(): CartItem[] {
+    return this.getInitialCart();
   }
 
   private storeCart(items: CartItem[]): void {
@@ -38,23 +39,39 @@ export class CartService {
   }
 
   public addToCart(item: CartItem) {
-    const existingItem = this.itemsInCart.find((_) => _.id === item.id);
+    this.itemsInCart = this.getInitialCart();
+    console.log('Adding item:', item);
+
+    const existingItem = this.itemsInCart.find(
+      (existingItem) => existingItem.product_id === item.product_id
+    );
+
     if (existingItem) {
+      console.log('Item exists in cart, updating quantity');
       existingItem.quantity = item.quantity;
     } else {
+      console.log('Item not in cart, adding new item');
       this.itemsInCart.push(item);
     }
-    this.itemsInCartSubject.next(this.itemsInCart);
+
+    console.log('Items in cart:', this.itemsInCart);
     this.storeCart(this.itemsInCart);
   }
 
   public removeFromCart(item: CartItem) {
-    const updatedCart = this.itemsInCart.filter((_) => _.id !== item.id);
-    this.itemsInCartSubject.next(updatedCart);
+    this.itemsInCart = this.getInitialCart();
+    console.log('Removing item:', item);
+    const updatedCart = this.itemsInCart.filter(
+      (existingItem) => existingItem.product_id !== item.product_id
+    );
+    console.log('Updated cart:', updatedCart);
     this.storeCart(updatedCart);
   }
 
-  public getItems(): Observable<CartItem[]> {
-    return this.itemsInCartSubject.asObservable();
+  public resetCart(): void {
+    this.itemsInCart = [];
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('cart');
+    }
   }
 }

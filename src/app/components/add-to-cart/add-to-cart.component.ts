@@ -30,7 +30,7 @@ export class AddToCartComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
-    const itemInCart = this.cartService.getItem(this.item.id);
+    const itemInCart = this.cartService.getItem(this.item.product_id);
     if (itemInCart) {
       this.item = itemInCart;
       this.inCart = true;
@@ -38,17 +38,20 @@ export class AddToCartComponent implements OnInit {
   }
 
   addToCart() {
+    console.log(this.item);
     this.item.quantity++;
     this.cartService.addToCart(this.item);
     this.inCart = true;
   }
 
   increaseQuantity() {
+    console.log(this.item);
     this.item.quantity++;
     this.cartService.addToCart(this.item);
   }
 
   decreaseQuantity() {
+    console.log(this.item);
     this.item.quantity--;
     this.cartService.removeFromCart(this.item);
     if (this.item.quantity < 1) {
@@ -57,8 +60,6 @@ export class AddToCartComponent implements OnInit {
   }
 
   updateQuantity(newQuantity: number) {
-    console.log('newQuantity: ', newQuantity);
-
     this.item.quantity = newQuantity;
     this.cartService.addToCart(this.item);
   }

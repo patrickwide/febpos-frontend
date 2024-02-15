@@ -1,0 +1,46 @@
+<form (ngSubmit)="onSubmit()">
+  <h3 class="text-base font-semibold leading-7 text-gray-900">
+    Checkout Information
+  </h3>
+  <p class="max-w-2xl text-sm leading-6 text-gray-500">
+    Checkout {{ sale.items.length }} Items
+  </p>
+  <div class="mb-2">
+    <mat-form-field>
+      <mat-label>Sale Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="sale.sale_date"
+        name="sale_date"
+        [max]="today"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="mb-2">
+    <mat-form-field class="w-full">
+      <mat-label>Sale Discount</mat-label>
+      <input
+        matInput
+        [(ngModel)]="sale.discount"
+        name="discount"
+        type="number"
+      />
+    </mat-form-field>
+  </div>
+  <div class="mb-2">
+    <mat-checkbox class="example-margin" [(ngModel)]="sale.vat" name="vat"
+      >Vat</mat-checkbox
+    >
+  </div>
+  <div class="flex justify-end my-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>
